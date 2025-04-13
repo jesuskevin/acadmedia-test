@@ -18,7 +18,7 @@ Route::post('logout', [AuthController::class,'logout'])->middleware('auth:sanctu
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('courses', CourseController::class)->middleware(['role_or_permission:manage courses']);
-    Route::apiResource('enrollments', EnrollmentController::class)->middleware(['role_or_permission:manage enrollemnts']);
+    Route::apiResource('enrollments', EnrollmentController::class)->middleware(['role_or_permission:manage enrollemnts'])->except('update');
     Route::apiResource('payments',PaymentController::class)->middleware(['role_or_permission:manage payments']);
     Route::apiResource('communications', CommunicationController::class)->middleware(['role_or_permission:manage communications']);
 });

@@ -34,12 +34,21 @@ class DatabaseSeeder extends Seeder
             'name' => 'Tutor Example',
             'email' => 'tutor@example.com',
         ]);
+        $user->tutor()->create([
+            'phone' => '000-000-0000',
+        ]);
+        $user->tutor->students()->create([
+            'tutor_id' => $user->id,
+            'first_name' => fake()->firstName,
+            'last_name' => fake()->lastName,
+            'birthdate' => '2000-08-05',
+        ]);
         $user->assignRole($role1);
 
-        $user = User::factory()->create([
+        $admin = User::factory()->create([
             'name' => 'Super Admin',
             'email' => 'superadmin@example.com',
         ]);
-        $user->assignRole($role2);
+        $admin->assignRole($role2);
     }
 }
