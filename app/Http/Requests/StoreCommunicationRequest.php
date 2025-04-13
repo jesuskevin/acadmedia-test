@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreCommunicationRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class StoreCommunicationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,22 @@ class StoreCommunicationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'course_id' => [
+                'required',
+                'numeric',
+                Rule::exists('courses', 'id'),
+            ],
+            'title' => [
+                'required',
+                'string',
+                'min:3',
+                'max:255',
+            ],
+            'message' => [
+                'required',
+                'string',
+                'min: 3',
+            ],
         ];
     }
 }

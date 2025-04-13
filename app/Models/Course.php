@@ -20,6 +20,6 @@ class Course extends Model
 
     public function enrollments(): BelongsToMany
     {
-        return $this->belongsToMany(Enrollment::class)->timestamps();
+        return $this->belongsToMany(Enrollment::class)->withTimestamps();
     }
 }
