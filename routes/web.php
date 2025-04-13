@@ -1,5 +1,8 @@
 <?php
 
+use App\Livewire\Courses;
+use App\Livewire\Courses\Create;
+use App\Livewire\Courses\Edit;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -19,6 +22,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/profile', Profile::class)->name('settings.profile');
     Route::get('settings/password', Password::class)->name('settings.password');
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
+
+    Route::get('/courses', Courses::class)->name('courses.index');
+    Route::get('/courses/create', Create::class)->name('courses.create');
+    Route::get('/courses/{course}/edit', Edit::class)->name('courses.edit');
 });
 
 require __DIR__.'/auth.php';

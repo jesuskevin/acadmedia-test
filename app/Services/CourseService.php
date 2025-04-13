@@ -20,23 +20,30 @@ class CourseService
      */
     public function index()
     {
-        return $this->model->paginate();
+        return $this->model->paginate(5);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCourseRequest $request)
+    public function store(StoreCourseRequest|array $request)
     {
-        $data = $request->validated();
+        $data = $request;
+        if ($request instanceof StoreCourseRequest) {
+            $data = $request->validated();
+        }
         return $this->model->create($data);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCourseRequest $request, Course $course)
+    public function update(UpdateCourseRequest|array $request, Course $course)
     {
+        $data = $request;
+        if ($request instanceof StoreCourseRequest) {
+            $data = $request->validated();
+        }
         $data = $request->validated();
         return $course->update($data);
     }
