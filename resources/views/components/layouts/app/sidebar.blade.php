@@ -26,6 +26,12 @@
                     {{ __('Estudiantes') }}
                 </flux:navlist.item>
             </flux:navlist.group>
+            <flux:navlist.group :heading="__('Matriculas')" class="grid">
+                <flux:navlist.item icon="list-bullet" :href="route('enrollments.index')"
+                    :current="request()->routeIs('enrollments.index')" wire:navigate>
+                    {{ __('Matriculas') }}
+                </flux:navlist.item>
+            </flux:navlist.group>
         </flux:navlist>
 
         <flux:spacer />

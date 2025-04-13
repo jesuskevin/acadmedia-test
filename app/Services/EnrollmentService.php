@@ -21,18 +21,21 @@ class EnrollmentService
      */
     public function index()
     {
-        return $this->model->with(['student', 'courses'])->paginate();
+        return $this->model->with(['student', 'courses'])->paginate(5);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreEnrollmentRequest $request)
+    public function store(StoreEnrollmentRequest|array $request)
     {
-        $data = $request->validated();
+        $data = $request;
+        if ($request instanceof StoreEnrollmentRequest) {
+            $data = $request->validated();
+        }
         $enrollment = $this->model::create([
             'enrollment_number' => Str::uuid(),
-            ...$request->validated(),
+            ...$data,
         ]);
         $enrollment->courses()->sync($data['course_id']);
 
@@ -42,9 +45,12 @@ class EnrollmentService
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateEnrollmentRequest $request, Enrollment $enrollment)
+    public function update(UpdateEnrollmentRequest|array $request, Enrollment $enrollment)
     {
-        $data = $request->validated();
+        $data = $request;
+        if ($request instanceof UpdateEnrollmentRequest) {
+            $data = $request->validated();
+        }
         return $enrollment->update($data);
     }
 

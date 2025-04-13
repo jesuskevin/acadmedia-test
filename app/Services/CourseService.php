@@ -18,9 +18,9 @@ class CourseService
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($perPage = null)
     {
-        return $this->model->paginate(5);
+        return $this->model->paginate($perPage ?? 5);
     }
 
     /**
