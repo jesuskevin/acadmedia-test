@@ -20,24 +20,30 @@ class StudentService
      */
     public function index()
     {
-        return $this->model->with('tutor.user')->paginate();
+        return $this->model->with('tutor.user')->paginate(5);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreStudentRequest $request)
+    public function store(StoreStudentRequest|array $request)
     {
-        $data = $request->validated();
+        $data = $request;
+        if ($request instanceof StoreCourseRequest) {
+            $data = $request->validated();
+        }
         return $this->model->create($data)->load('tutor.user');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateStudentRequest $request, Student $student)
+    public function update(UpdateStudentRequest|array $request, Student $student)
     {
-        $data = $request->validated();
+        $data = $request;
+        if ($request instanceof StoreCourseRequest) {
+            $data = $request->validated();
+        }
         return $student->update($data);
     }
 

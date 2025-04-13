@@ -40,8 +40,6 @@ class Edit extends Component
         $validated = $this->validate((new UpdateCourseRequest())->rules());
         $this->courseService->update($validated, $this->course);
 
-        $this->reset(['name', 'description', 'price', 'duration']);
-
         return redirect()->back()->with('success', 'Curso Actualizado Correctamente.');
     }
 

@@ -6,6 +6,7 @@ use App\Livewire\Courses\Edit;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
+use App\Livewire\Students;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -26,6 +27,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/courses', Courses::class)->name('courses.index');
     Route::get('/courses/create', Create::class)->name('courses.create');
     Route::get('/courses/{course}/edit', Edit::class)->name('courses.edit');
+
+    Route::get('/students', Students::class)->name('students.index');
+    Route::get('/students/create', \App\Livewire\Students\Create::class)->name('students.create');
+    Route::get('/students/{student}/edit', \App\Livewire\Students\Edit::class)->name('students.edit');
 });
 
 require __DIR__.'/auth.php';

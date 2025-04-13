@@ -44,7 +44,6 @@ class CourseService
         if ($request instanceof StoreCourseRequest) {
             $data = $request->validated();
         }
-        $data = $request->validated();
         return $course->update($data);
     }
 
