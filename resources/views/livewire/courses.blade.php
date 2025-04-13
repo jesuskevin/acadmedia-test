@@ -26,11 +26,15 @@
                 </div>
             </div>
 
-            <div class="ml-6 mt-2">
+            <div class="ml-6">
                 <a href="{{ route('courses.edit', $course) }}"
-                    class="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-xl transition">
+                    class="my-1 flex flex-col items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-xl transition">
                     ✏️ Editar
                 </a>
+                <button wire:click="$dispatch('openRegisterModal', { courseId: {{ $course->id }} })"
+                    class="my-1 flex flex-col items-center px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold rounded-xl transition">
+                    🧑‍🎓 Registrar estudiante
+                </button>
             </div>
         </div>
     @empty
@@ -39,4 +43,6 @@
     <div class="mt-6">
         {{ $courses->links('pagination::tailwind') }}
     </div>
+
+    @livewire('course-register-student')
 </div>
