@@ -15,32 +15,32 @@
 
         <flux:navlist variant="outline">
             <flux:navlist.group :heading="__('Cursos')" class="grid">
-                <flux:navlist.item icon="list-bullet" :href="route('courses.index')"
+                <flux:navlist.item icon="book-open" :href="route('courses.index')"
                     :current="request()->routeIs('courses.index')" wire:navigate>
                     {{ __('Cursos') }}
                 </flux:navlist.item>
             </flux:navlist.group>
             <flux:navlist.group :heading="__('Estudiantes')" class="grid">
-                <flux:navlist.item icon="list-bullet" :href="route('students.index')"
+                <flux:navlist.item icon="academic-cap" :href="route('students.index')"
                     :current="request()->routeIs('students.index')" wire:navigate>
                     {{ __('Estudiantes') }}
                 </flux:navlist.item>
             </flux:navlist.group>
             <flux:navlist.group :heading="__('Matriculas')" class="grid">
-                <flux:navlist.item icon="list-bullet" :href="route('enrollments.index')"
+                <flux:navlist.item icon="building-library" :href="route('enrollments.index')"
                     :current="request()->routeIs('enrollments.index')" wire:navigate>
                     {{ __('Matriculas') }}
                 </flux:navlist.item>
             </flux:navlist.group>
             <flux:navlist.group :heading="__('Pagos')" class="grid">
-                <flux:navlist.item icon="list-bullet" :href="route('payments.index')"
+                <flux:navlist.item icon="banknotes" :href="route('payments.index')"
                     :current="request()->routeIs('payments.index')" wire:navigate>
                     {{ __('Pagos') }}
                 </flux:navlist.item>
             </flux:navlist.group>
             @role('admin')
                 <flux:navlist.group :heading="__('Comunicados')" class="grid">
-                    <flux:navlist.item icon="list-bullet" :href="route('communications.index')"
+                    <flux:navlist.item icon="chat-bubble-left-ellipsis" :href="route('communications.index')"
                         :current="request()->routeIs('communications.index')" wire:navigate>
                         {{ __('Comunicados') }}
                     </flux:navlist.item>
