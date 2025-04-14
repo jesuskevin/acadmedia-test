@@ -28,9 +28,12 @@ class CommunicationService
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCommunicationRequest $request)
+    public function store(StoreCommunicationRequest|array $request)
     {
-        $data = $request->validated();
+        $data = $request;
+        if ($request instanceof StoreCourseRequest) {
+            $data = $request->validated();
+        }
         $communication = $this->model::create($data)->load('course.enrollments.student.tutor.user');
         $tutors = [];
         foreach ($communication->course->enrollments as $key => $enrollment) {

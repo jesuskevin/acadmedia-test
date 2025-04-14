@@ -38,6 +38,14 @@
                     {{ __('Pagos') }}
                 </flux:navlist.item>
             </flux:navlist.group>
+            @role('admin')
+                <flux:navlist.group :heading="__('Comunicados')" class="grid">
+                    <flux:navlist.item icon="list-bullet" :href="route('communications.index')"
+                        :current="request()->routeIs('communications.index')" wire:navigate>
+                        {{ __('Comunicados') }}
+                    </flux:navlist.item>
+                </flux:navlist.group>
+            @endrole
         </flux:navlist>
 
         <flux:spacer />

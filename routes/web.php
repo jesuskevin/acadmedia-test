@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Communications;
 use App\Livewire\Courses;
 use App\Livewire\Courses\Create;
 use App\Livewire\Courses\Edit;
@@ -39,6 +40,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/payments', Payments::class)->name('payments.index');
     Route::get('/payments/create', \App\Livewire\Payments\Create::class)->name('payments.create')->middleware('role:admin');
+
+    Route::get('/communications', Communications::class)->name('communications.index')->middleware('role:admin');
+    Route::get('/communications/create', \App\Livewire\Communications\Create::class)->name('communications.create')->middleware('role:admin');
 });
 
 require __DIR__.'/auth.php';
