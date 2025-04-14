@@ -4,6 +4,7 @@ use App\Livewire\Courses;
 use App\Livewire\Courses\Create;
 use App\Livewire\Courses\Edit;
 use App\Livewire\Enrollments;
+use App\Livewire\Payments;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -35,6 +36,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/enrollments', Enrollments::class)->name('enrollments.index');
     Route::get('/enrollments/create', \App\Livewire\Enrollments\Create::class)->name('enrollments.create');
+
+    Route::get('/payments', Payments::class)->name('payments.index');
+    Route::get('/payments/create', \App\Livewire\Payments\Create::class)->name('payments.create')->middleware('role:admin');
 });
 
 require __DIR__.'/auth.php';

@@ -27,9 +27,12 @@ class PaymentService
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePaymentRequest $request)
+    public function store(StorePaymentRequest|array $request)
     {
-        $data = $request->validated();
+        $data = $request;
+        if ($request instanceof StoreCourseRequest) {
+            $data = $request->validated();
+        }
         $enrollment = $this->model::create($data);
         return $enrollment->load(['enrollment.student', 'course']);
     }

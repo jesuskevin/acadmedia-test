@@ -21,7 +21,13 @@ class EnrollmentService
      */
     public function index()
     {
-        return $this->model->with(['student', 'courses'])->paginate(5);
+        return $this->model->with(['student', 'courses'])
+            ->when(auth()->user()->hasRole('tutor'), function ($query) {
+                return $query->whereHas('student.tutor', function ($q) {
+                    $q->where('id', auth()->user()->tutor->id);
+                });
+            })
+            ->paginate(5);
     }
 
     /**
