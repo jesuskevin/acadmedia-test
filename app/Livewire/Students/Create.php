@@ -34,7 +34,12 @@ class Create extends Component
 
     public function render()
     {
-        $tutors = Tutor::with('user')->get();
+        if(auth()->user()->hasRole('tutor')) {
+            $tutors = Tutor::with('user')->where('user_id', auth()->user()->id)->get();
+            $this->tutor_id = $tutors[0]->id;
+        } else {
+            $tutors = Tutor::with('user')->get();
+        }
         return view('livewire.students.create', [
             'tutors' => $tutors
         ]);

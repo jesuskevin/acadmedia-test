@@ -18,6 +18,8 @@ class Register extends Component
 
     public string $email = '';
 
+    public string $phone_number = '';
+
     public string $password = '';
 
     public string $password_confirmation = '';
@@ -27,16 +29,21 @@ class Register extends Component
      */
     public function register(): void
     {
-        $tutor = Role::where('name', 'tutor')->first();
+        $tutorRole = Role::where('name', 'tutor')->first();
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'phone_number' => ['required', 'string'],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $validated['password'] = Hash::make($validated['password']);
 
-        event(new Registered(($user = User::create($validated)->assignRole($tutor))));
+        event(new Registered(($user = User::create($validated)->assignRole($tutorRole))));
+
+        $user->tutor()->create([
+            'phone' => $validated['phone_number'],
+        ]);
 
         Auth::login($user);
 

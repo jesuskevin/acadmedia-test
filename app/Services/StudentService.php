@@ -20,7 +20,10 @@ class StudentService
      */
     public function index()
     {
-        return $this->model->with('tutor.user')->paginate(5);
+        return $this->model->with('tutor.user')
+            ->when(auth()->user()->hasRole('tutor'), function ($query) {
+                return $query->where('tutor_id', auth()->user()->tutor->id);
+            })->paginate(5);
     }
 
     /**

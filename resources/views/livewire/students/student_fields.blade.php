@@ -1,12 +1,13 @@
 @if (isset($tutors))
     <div>
         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Tutor</label>
-        <select id="duration" wire:model="tutor_id"
+        <select id="duration" wire:model="tutor_id" @role('tutor') disabled @endrole
             class="block w-full px-4 py-2 text-sm border border-gray-300 dark:border-zinc-600 rounded-lg bg-white dark:bg-zinc-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition">
             <option value="">Seleccionar tutor</option>
             @forelse ($tutors as $tutor)
-                <option value="{{ $tutor->id }}" @if (auth()->user()->hasRole('tutor')) selected @endif>
-                    {{ $tutor->user->name }}</option>
+                <option value="{{ $tutor->id }}" selected>
+                    {{ $tutor->user->name }}
+                </option>
             @empty
             @endforelse
         </select>

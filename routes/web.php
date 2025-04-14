@@ -26,8 +26,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
 
     Route::get('/courses', Courses::class)->name('courses.index');
-    Route::get('/courses/create', Create::class)->name('courses.create');
-    Route::get('/courses/{course}/edit', Edit::class)->name('courses.edit');
+    Route::get('/courses/create', Create::class)->name('courses.create')->middleware('role:admin');
+    Route::get('/courses/{course}/edit', Edit::class)->name('courses.edit')->middleware('role:admin');
 
     Route::get('/students', Students::class)->name('students.index');
     Route::get('/students/create', \App\Livewire\Students\Create::class)->name('students.create');

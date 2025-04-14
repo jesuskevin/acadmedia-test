@@ -58,9 +58,12 @@ class CourseRegisterStudent extends Component
 
     public function render()
     {
-        $tutors = Tutor::when(!auth()->user()->hasRole('admin'), function ($query) {
-            return $query->where('user_id', auth()->user()->id);
-        })->get();
+        if(auth()->user()->hasRole('tutor')) {
+            $tutors = Tutor::with('user')->where('user_id', auth()->user()->id)->get();
+            $this->tutor_id = $tutors[0]->id;
+        } else {
+            $tutors = Tutor::with('user')->get();
+        }
         return view('livewire.course-register-student', [
             'tutors' => $tutors
         ]);

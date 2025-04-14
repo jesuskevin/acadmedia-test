@@ -2,10 +2,12 @@
     <div class="flex items-center justify-between mb-6">
         <h1 class="text-3xl font-bold text-gray-900 dark:text-white">🎓 Cursos Disponibles</h1>
 
-        <a href="{{ route('courses.create') }}"
-            class="inline-flex items-center px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold rounded-xl transition">
-            Crear curso
-        </a>
+        @role('admin')
+            <a href="{{ route('courses.create') }}"
+                class="inline-flex items-center px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold rounded-xl transition">
+                Crear curso
+            </a>
+        @endrole
     </div>
 
     @if (session()->has('success'))
@@ -27,10 +29,12 @@
             </div>
 
             <div class="ml-6">
-                <a href="{{ route('courses.edit', $course) }}"
-                    class="my-1 flex flex-col items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-xl transition">
-                    ✏️ Editar
-                </a>
+                @role('admin')
+                    <a href="{{ route('courses.edit', $course) }}"
+                        class="my-1 flex flex-col items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-xl transition">
+                        ✏️ Editar
+                    </a>
+                @endrole
                 <button wire:click="$dispatch('openRegisterModal', { courseId: {{ $course->id }} })"
                     class="my-1 flex flex-col items-center px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold rounded-xl transition">
                     🧑‍🎓 Registrar estudiante

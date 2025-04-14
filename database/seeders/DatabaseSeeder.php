@@ -20,11 +20,12 @@ class DatabaseSeeder extends Seeder
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         // create roles and assign existing permissions
-        $admin = Role::create(['name' => 'admin']);
+        Role::create(['name' => 'tutor']);
+        $adminRole = Role::create(['name' => 'admin']);
         $admin = User::factory()->create([
             'name' => 'Super Admin',
             'email' => 'superadmin@example.com',
         ]);
-        $admin->assignRole($admin);
+        $admin->assignRole($adminRole);
     }
 }

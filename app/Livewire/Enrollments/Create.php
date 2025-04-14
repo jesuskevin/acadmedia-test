@@ -6,6 +6,7 @@ use App\Http\Requests\StoreEnrollmentRequest;
 use App\Models\Course;
 use App\Models\Enrollment;
 use App\Models\Student;
+use App\Models\Tutor;
 use App\Services\EnrollmentService;
 use Livewire\Component;
 
@@ -34,9 +35,11 @@ class Create extends Component
     public function render()
     {
         $courses = Course::all();
-        $students = Student::when(auth()->user()->hasRole('tutor'), function ($query) {
-            return $query->where('tutor_id', auth()->user()->id);
-        })->get();
+        if(auth()->user()->hasRole('tutor')) {
+            $students = Student::where('tutor_id', auth()->user()->tutor->id)->get();
+        } else {
+            $students = Student::all();
+        }
         return view('livewire.enrollments.create', [
             'courses' => $courses,
             'students' => $students,

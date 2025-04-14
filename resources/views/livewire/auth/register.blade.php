@@ -26,6 +26,16 @@
             placeholder="email@example.com"
         />
 
+        <!-- Phone number -->
+        <flux:input
+            wire:model="phone_number"
+            :label="__('Phone Number')"
+            type="test"
+            required
+            autocomplete="phone"
+            placeholder="000-000-0000"
+        />
+
         <!-- Password -->
         <flux:input
             wire:model="password"
