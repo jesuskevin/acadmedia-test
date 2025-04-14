@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Spatie\Permission\Models\Role;
 
 #[Layout('components.layouts.auth')]
 class Register extends Component
@@ -26,6 +27,7 @@ class Register extends Component
      */
     public function register(): void
     {
+        $tutor = Role::where('name', 'tutor')->first();
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
@@ -34,7 +36,7 @@ class Register extends Component
 
         $validated['password'] = Hash::make($validated['password']);
 
-        event(new Registered(($user = User::create($validated))));
+        event(new Registered(($user = User::create($validated)->assignRole($tutor))));
 
         Auth::login($user);
 

@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class AuthController extends Controller
 {
     public function register(Request $request)
     {
+        $tutor = Role::where('name', 'tutor')->first();
         $registerUserData = $request->validate([
             'name' => 'required|string',
             'email' => 'required|string|email|unique:users',
@@ -20,7 +22,7 @@ class AuthController extends Controller
             'name' => $registerUserData['name'],
             'email' => $registerUserData['email'],
             'password' => Hash::make($registerUserData['password']),
-        ]);
+        ])->assignRole($tutor);
         return response()->json([
             'message' => 'User Created ',
         ]);
